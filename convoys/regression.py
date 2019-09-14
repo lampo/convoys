@@ -222,7 +222,7 @@ class GeneralizedGamma(RegressionModel):
         }
 
         # Find the maximum a posteriori of the distribution
-        res = scipy.optimize.basinhopping(f, x0, niter=20, *minimizer_kwargs)
+        res = scipy.optimize.basinhopping(f, x0, *minimizer_kwargs)
         sys.stdout.write('\n')
         if not res.success:
             raise Exception('Optimization failed with message: %s' %
