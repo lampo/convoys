@@ -219,7 +219,7 @@ class GeneralizedGamma(RegressionModel):
         minimizer_kwargs = {
             'method': 'SLSQP', 'jac': jac,
             'options': {'maxiter': 9999},
-            'args': args
+            'args': *args
         }
 
         # Find the maximum a posteriori of the distribution
