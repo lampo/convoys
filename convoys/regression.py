@@ -216,9 +216,13 @@ class GeneralizedGamma(RegressionModel):
         f = lambda x: -generalized_gamma_loss(x, *args, callback=callback)
         jac = autograd.grad(lambda x: -generalized_gamma_loss(x, *args))
 
+        minimizer_kwargs = {
+            'method': 'SLSQP', 'jac': jac,
+            'options':{'maxiter': 9999}
+        }
+
         # Find the maximum a posteriori of the distribution
-        res = scipy.optimize.minimize(f, x0, jac=jac, method='SLSQP',
-                                      options={'maxiter': 9999})
+        res = scipy.optimize.basinhopping(f, x0, niter=10, *minimizer_kwargs)
         sys.stdout.write('\n')
         if not res.success:
             raise Exception('Optimization failed with message: %s' %
